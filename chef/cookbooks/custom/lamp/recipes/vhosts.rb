@@ -7,8 +7,9 @@ web_app "lamp" do
   server_name node['lamp']['url']
   server_aliases node['lamp']['vhosts']['server_aliases']
   docroot node['lamp']['vhosts']['docroot']
-  directory_index "index.php"
-  allow_override "All"
+  directory_index node['lamp']['vhosts']['directory_index']
+  directory_options node['lamp']['vhosts']['directory_options']
+  allow_override node['lamp']['vhosts']['allow_override']
   log_level node['lamp']['vhosts']['log_level']
 end
 

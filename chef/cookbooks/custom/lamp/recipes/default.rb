@@ -7,7 +7,6 @@
 # All rights reserved - Do Not Redistribute
 #
 
-include_recipe "lamp::utils"
 include_recipe "lamp::mysql"
 include_recipe "lamp::php"
 include_recipe "lamp::vhosts"

@@ -10,4 +10,4 @@
 
 # Author
 
-Author:: Alix Chaysinh (<YOUR_EMAIL>)
+Author:: Alix Chaysinh (<alix.chaysinh@gmail.com>)
