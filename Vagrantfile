@@ -12,7 +12,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.network :forwarded_port, guest: 80, host: 4248
 
     # Careful not to create IP conflict in the network
-    config.vm.network :private_network, ip: "192.168.33.10"
+    config.vm.network :private_network, ip: "192.168.88.10"
 
     # If application need public access
     # config.vm.network :public_network, ip: "192.168.0.199"
@@ -29,13 +29,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # end
 
     # ... or Virtual Box
-    config.vm.provider :virtualbox do |vb|
+    # config.vm.provider :virtualbox do |vb|
         # vb.gui = true
 
         # Workaround VM booting because of ssh login https://github.com/mitchellh/vagrant/issues/391
         # vb.customize ["modifyvm", :id, "--rtcuseutc", "on"]
-        vb.customize ["modifyvm", :id, "--memory", "2048"]
-    end
+        # vb.customize ["modifyvm", :id, "--memory", "2048"]
+    # end
 
     # Omnibus plugin: update chef version
     config.omnibus.chef_version = :latest
@@ -64,13 +64,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         chef.add_recipe "apache2"
         chef.add_recipe "apache2::mod_php5"
         chef.add_recipe "apache2::mod_rewrite"
+
+        chef.add_recipe "utils"
         chef.add_recipe "lamp"
 
         chef.json = {
-            :lamp => {
-                :env      => "dev",
-                :url      => "local.lamp.dev",
+            :utils => {
                 :timezone => "Etc/UTC",
+            },
+            :lamp  => {
+                :env    => "dev",
+                :url    => "local.lamp.dev",
                 :vhosts => {
                     :server_aliases => ["lamp.local dev.lamp.local"],
                     :docroot        => "/vagrant",
