@@ -10,17 +10,22 @@ Requirements
 
 - [Vagrant](http://www.vagrantup.com/downloads.html)
 
-  - with plugin vagrant-omnibus
+  - with plugin vagrant-vbox-snapshot which is awesome for testing provisions
+    ```
+    vagrant plugin install vagrant-vbox-snapshot
+    ```
+
+  - with plugin vagrant-omnibus to install chef to the most recent version
     ```
     vagrant plugin install vagrant-omnibus
     ```
 
-  - with plugin vagrant-berkshelf
+  - with plugin vagrant-berkshelf to install Berkshelf for recipes dependencies
     ```
     vagrant plugin install vagrant-berkshelf
     ```
 
-  - with plugin vagrant-cachier
+  - with plugin vagrant-cachier to speed up vagrant
     ```
     vagrant plugin install vagrant-cachier
     ```
