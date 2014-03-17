@@ -6,10 +6,17 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
+    # Hostname
+    config.vm.hostname = "local.lamp.dev"
+
+    # Box nam
     config.vm.box = "deb72"
 
     # Apache
-    config.vm.network :forwarded_port, guest: 80, host: 4248
+    config.vm.network :forwarded_port, guest: 80, host: 5010
+
+    # Mysql
+    config.vm.network :forwarded_port, guest: 3306, host: 3306
 
     # Careful not to create IP conflict in the network
     config.vm.network :private_network, ip: "192.168.88.10"
@@ -20,6 +27,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.synced_folder ".", "/vagrant", :nfs => true
 
     config.ssh.forward_agent = true
+
+    # Host manager
+    config.hostmanager.enabled = true
+    config.hostmanager.manage_host = true
+    config.hostmanager.ignore_private_ip = false
+    config.hostmanager.include_offline = true
+    config.hostmanager.aliases = %w(local.dev)
 
     # VMware...
     # config.vm.provider "vmware_fusion" do |v|
@@ -66,6 +80,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         chef.add_recipe "apache2::mod_rewrite"
 
         chef.add_recipe "utils"
+        chef.add_recipe "dev"
         chef.add_recipe "lamp"
 
         chef.json = {
@@ -74,9 +89,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             },
             :lamp  => {
                 :env    => "dev",
-                :url    => "local.lamp.dev",
+                :url    => config.vm.hostname,
                 :vhosts => {
-                    :server_aliases => ["lamp.local dev.lamp.local"],
+                    :server_aliases => config.hostmanager.aliases,
                     :docroot        => "/vagrant",
                     :log_level      => "debug",
                 },

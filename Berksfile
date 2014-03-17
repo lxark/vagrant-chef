@@ -14,7 +14,3 @@ cookbook "mysql"
 cookbook "database"
 cookbook "php", git: "git://github.com/priestjim/chef-php.git"
 cookbook "phpmyadmin"
-
-
-
-
