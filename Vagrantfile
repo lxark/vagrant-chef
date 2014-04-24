@@ -6,14 +6,23 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
+    # Box
+    config.vm.box = "deb72"
+    config.vm.box_url = "https://vagrantcloud.com/chef/debian-7.4/version/1/provider/virtualbox.box"
+
     # Hostname
     config.vm.hostname = "local.lamp.dev"
 
-    # Box nam
-    config.vm.box = "deb72"
+    # Host manager
+    config.hostmanager.enabled = true
+    config.hostmanager.manage_host = true
+    config.hostmanager.ignore_private_ip = false
+    config.hostmanager.include_offline = true
+    config.hostmanager.aliases = ["lamp.local dev.lamp.local"]
 
     # Apache
-    config.vm.network :forwarded_port, guest: 80, host: 5010
+    config.vm.network :forwarded_port, guest: 80, host: 8888
+    config.vm.network :forwarded_port, guest: 443, host: 8883
 
     # Mysql
     config.vm.network :forwarded_port, guest: 3306, host: 3306

@@ -25,6 +25,11 @@ Requirements
     vagrant plugin install vagrant-berkshelf
     ```
 
+  - with plugin vagrant-hostmanager to manage hosts file
+    ```
+    vagrant plugin install vagrant-hostmanager
+    ```
+
   - with plugin vagrant-cachier to speed up vagrant
     ```
     vagrant plugin install vagrant-cachier
@@ -41,4 +46,11 @@ Installation
 ```
 berks install -p chef/cookbooks/vendor
 vagrant up
+vagrant hostmanager
+```
+
+On Mac OS
+```
+sudo ipfw add 100 fwd 127.0.0.1,8888 tcp from any to me 80
+sudo ipfw add 101 fwd 127.0.0.1,8883 tcp from any to me 443
 ```
