@@ -7,7 +7,7 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # Box
-    config.vm.box = "deb72"
+    config.vm.box = "deb74"
     config.vm.box_url = "https://vagrantcloud.com/chef/debian-7.4/version/1/provider/virtualbox.box"
 
     # Hostname
@@ -36,13 +36,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.synced_folder ".", "/vagrant", :nfs => true
 
     config.ssh.forward_agent = true
-
-    # Host manager
-    config.hostmanager.enabled = true
-    config.hostmanager.manage_host = true
-    config.hostmanager.ignore_private_ip = false
-    config.hostmanager.include_offline = true
-    config.hostmanager.aliases = %w(local.dev)
 
     # VMware...
     # config.vm.provider "vmware_fusion" do |v|
@@ -110,7 +103,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                     :mysql_pass       => "lamp",
                     :mysql_host       => "localhost",
                     :mysql_privileges =>  %w[SELECT INSERT UPDATE DELETE CREATE ALTER DROP],
-                    :mysql_sql_file   => ""
+                    :mysql_sql_files  => [ ]
                 }
             },
             :build_essential => {

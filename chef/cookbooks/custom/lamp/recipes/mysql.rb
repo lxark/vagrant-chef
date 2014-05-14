@@ -32,8 +32,10 @@ end
 
 
 # Import database from a sql script, quicker than the lwrp
-if ::File.exists?(node['lamp']['databases']['mysql_sql_file'])
-  execute "import sql data" do
-    command "mysql -u root -p#{node['mysql']['server_root_password']} #{node['lamp']['databases']['mysql_name']} < #{node['lamp']['databases']['mysql_sql_file']}"
+node['lamp']['databases']['mysql_sql_files'].each do |mysql_file|
+  if ::File.exists?(mysql_file)
+    execute "import sql data" do
+      command "mysql -u root -p#{node['mysql']['server_root_password']} #{node['lamp']['databases']['mysql_name']} < #{mysql_file}"
+    end
   end
 end
