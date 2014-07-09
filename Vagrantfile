@@ -51,6 +51,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         # Workaround VM booting because of ssh login https://github.com/mitchellh/vagrant/issues/391
         # vb.customize ["modifyvm", :id, "--rtcuseutc", "on"]
         # vb.customize ["modifyvm", :id, "--memory", "2048"]
+
+        # Share connection
+        # vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+        # vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
     # end
 
     # Omnibus plugin: update chef version
